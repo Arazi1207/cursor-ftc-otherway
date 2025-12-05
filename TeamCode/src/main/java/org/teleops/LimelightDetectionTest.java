@@ -1,12 +1,9 @@
-package org.firstinspires.ftc.teamcode;
+package org.teleops;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.subsystems.LimelightSubsystem;
 
-/**
- * Simple Limelight AprilTag detection test
- */
 @TeleOp(name = "Limelight Detection Test", group = "Test")
 public class LimelightDetectionTest extends LinearOpMode {
     

@@ -12,7 +12,6 @@ import static org.firstinspires.ftc.teamcode.pedroPathing.tuning.FollowerConstan
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -22,6 +21,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.pedroPathing.localization.PoseUpdater;
 import org.firstinspires.ftc.teamcode.pedroPathing.util.DashboardPoseTracker;
 import org.firstinspires.ftc.teamcode.pedroPathing.util.Drawing;
+import dev.nextftc.ftc.NextFTCOpMode;
 
 import java.util.Arrays;
 import java.util.List;
@@ -36,7 +36,7 @@ import java.util.List;
  */
 @Config
 @TeleOp(group = "Pedro Pathing Tuning", name = "Localization Test")
-public class LocalizationTest extends OpMode {
+public class LocalizationTest extends NextFTCOpMode {
     private PoseUpdater poseUpdater;
     private DashboardPoseTracker dashboardPoseTracker;
     private Telemetry telemetryA;
@@ -51,7 +51,7 @@ public class LocalizationTest extends OpMode {
      * This initializes the PoseUpdater, the mecanum drive motors, and the FTC Dashboard telemetry.
      */
     @Override
-    public void init() {
+    public void onInit() {
         poseUpdater = new PoseUpdater(hardwareMap);
 
         dashboardPoseTracker = new DashboardPoseTracker(poseUpdater);
@@ -91,7 +91,7 @@ public class LocalizationTest extends OpMode {
      * Dashboard telemetry with the robot's position as well as draws the robot's position.
      */
     @Override
-    public void loop() {
+    public void onUpdate() {
         poseUpdater.update();
         dashboardPoseTracker.update();
 

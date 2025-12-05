@@ -23,13 +23,13 @@
 package org.firstinspires.ftc.teamcode.pedroPathing.localization.tuning;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.teamcode.pedroPathing.localization.GoBildaPinpointDriver;
+import dev.nextftc.ftc.NextFTCOpMode;
 
 import java.util.Locale;
 
@@ -63,7 +63,7 @@ For support, contact tech@gobilda.com
 @TeleOp(name="goBILDA® PinPoint Odometry Example", group="Linear OpMode")
 @Disabled
 
-public class SensorGoBildaPinpointExample extends LinearOpMode {
+public class SensorGoBildaPinpointExample extends NextFTCOpMode {
 
     GoBildaPinpointDriver odo; // Declare OpMode member for the Odometry Computer
 
@@ -71,11 +71,7 @@ public class SensorGoBildaPinpointExample extends LinearOpMode {
 
 
     @Override
-    public void runOpMode() {
-
-        // Initialize the hardware variables. Note that the strings used here must correspond
-        // to the names assigned during the robot configuration step on the DS or RC devices.
-
+    public void onInit() {
         odo = hardwareMap.get(GoBildaPinpointDriver.class,"odo");
 
         /*
@@ -123,14 +119,15 @@ public class SensorGoBildaPinpointExample extends LinearOpMode {
         telemetry.addData("Device Version Number:", odo.getDeviceVersion());
         telemetry.addData("Device Scalar", odo.getYawScalar());
         telemetry.update();
+    }
 
-        // Wait for the game to start (driver presses START)
-        waitForStart();
+    @Override
+    public void onStartButtonPressed() {
         resetRuntime();
+    }
 
-
-        // run until the end of the match (driver presses STOP)
-        while (opModeIsActive()) {
+    @Override
+    public void onUpdate() {
 
             /*
             Request an update from the Pinpoint odometry computer. This checks almost all outputs
@@ -195,6 +192,5 @@ public class SensorGoBildaPinpointExample extends LinearOpMode {
 
             telemetry.addData("REV Hub Frequency: ", frequency); //prints the control system refresh rate
             telemetry.update();
-
-        }
-    }}
+    }
+}

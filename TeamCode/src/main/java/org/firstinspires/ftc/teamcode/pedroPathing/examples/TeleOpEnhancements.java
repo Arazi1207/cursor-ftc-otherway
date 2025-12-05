@@ -5,12 +5,12 @@ import static org.firstinspires.ftc.teamcode.pedroPathing.tuning.FollowerConstan
 import static org.firstinspires.ftc.teamcode.pedroPathing.tuning.FollowerConstants.rightFrontMotorName;
 import static org.firstinspires.ftc.teamcode.pedroPathing.tuning.FollowerConstants.rightRearMotorName;
 
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.pedroPathing.follower.Follower;
+import dev.nextftc.ftc.NextFTCOpMode;
 
 /**
  * This is the TeleOpEnhancements OpMode. It is an example usage of the TeleOp enhancements that
@@ -22,7 +22,7 @@ import org.firstinspires.ftc.teamcode.pedroPathing.follower.Follower;
  * @version 1.0, 3/21/2024
  */
 @TeleOp(name = "Pedro Pathing TeleOp Enhancements", group = "Test")
-public class TeleOpEnhancements extends OpMode {
+public class TeleOpEnhancements extends NextFTCOpMode {
     private Follower follower;
 
     private DcMotorEx leftFront;
@@ -34,7 +34,7 @@ public class TeleOpEnhancements extends OpMode {
      * This initializes the drive motors as well as the Follower and motion Vectors.
      */
     @Override
-    public void init() {
+    public void onInit() {
         follower = new Follower(hardwareMap);
 
         leftFront = hardwareMap.get(DcMotorEx.class, leftFrontMotorName);
@@ -55,7 +55,7 @@ public class TeleOpEnhancements extends OpMode {
      * correction.
      */
     @Override
-    public void loop() {
+    public void onUpdate() {
         follower.setTeleOpMovementVectors(-gamepad1.left_stick_y, -gamepad1.left_stick_x, -gamepad1.right_stick_x);
         follower.update();
     }
