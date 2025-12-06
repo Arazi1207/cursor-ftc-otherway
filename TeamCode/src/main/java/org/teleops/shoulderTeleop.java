@@ -22,13 +22,14 @@ public class shoulderTeleop extends NextFTCOpMode {
 
     @Override
     public void onUpdate() {
-        if (gamepad1.dpad_down) {
-            shoulderSubsystem.setTargetTicks(LOW_TICKS);
-        } else if (gamepad1.dpad_left) {
-            shoulderSubsystem.setTargetTicks(MID_TICKS);
-        } else if (gamepad1.dpad_up) {
-            shoulderSubsystem.setTargetTicks(HIGH_TICKS);
-        }
+        Gamepads.gamepad1().a()
+        .whenBecomesTrue(shoulderSubsystem.setTargetTicks(LOW_TICKS));
+
+        Gamepads.gamepad1().b()
+        .whenBecomesTrue(shoulderSubsystem.setTargetTicks(MID_TICKS));
+
+        Gamepads.gamepad1().y()
+        .whenBecomesTrue(shoulderSubsystem.setTargetTicks(HIGH_TICKS));
 
         shoulderSubsystem.telemetryLoop(telemetry);
         telemetry.update();
