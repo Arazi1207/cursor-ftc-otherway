@@ -17,6 +17,10 @@ import org.firstinspires.ftc.teamcode.subsystems.shoulder;
 @TeleOp(name = "shoulder teleop")
 public class shoulderTeleop extends NextFTCOpMode {
 
+    private Button lowButton;
+    private Button midButton;
+    private Button highButton;
+
     public shoulderTeleop() {
         addComponents(
                 new SubsystemComponent(shoulder.INSTANCE),
@@ -25,26 +29,26 @@ public class shoulderTeleop extends NextFTCOpMode {
         );
     }
 
-    private static final int LOW_TICKS = 0;
-    private static final int MID_TICKS = 1000;
-    private static final int HIGH_TICKS = 2000;
-
     @Override
     public void onInit() {
+    }
+
+    @Override
+    public void onStartButtonPressed() {
+        lowButton = button(() -> gamepad1.a);
+        lowButton.whenBecomesTrue(() -> shoulder.INSTANCE.setTargetTicks(shoulder.LOW_TICKS));
+
+        midButton = button(() -> gamepad1.b);
+        midButton.whenBecomesTrue(() -> shoulder.INSTANCE.setTargetTicks(shoulder.MID_TICKS));
+
+        highButton = button(() -> gamepad1.y);
+        highButton.whenBecomesTrue(() -> shoulder.INSTANCE.setTargetTicks(shoulder.HIGH_TICKS));
 
     }
 
     @Override
     public void onUpdate() {
-        Button LOW = button(()-> gamepad1.a);
-        LOW.whenTrue(()-> shoulder.INSTANCE.setTargetTicks(LOW_TICKS));
-
-        Button MIDDLE = button(()-> gamepad1.a);
-        MIDDLE.whenTrue(()-> shoulder.INSTANCE.setTargetTicks(MID_TICKS));
-
-        Button HIGH = button(()-> gamepad1.a);
-        HIGH.whenTrue(()-> shoulder.INSTANCE.setTargetTicks(HIGH_TICKS));
-
+        shoulder.INSTANCE.telemetryLoop(telemetry);
         telemetry.update();
     }
 }
