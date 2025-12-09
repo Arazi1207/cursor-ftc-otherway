@@ -1,12 +1,15 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
+
+import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 import dev.nextftc.core.subsystems.Subsystem;
 import dev.nextftc.hardware.impl.MotorEx;
-
 
 public class shoulder implements Subsystem {
     public static final shoulder INSTANCE = new shoulder();
@@ -35,17 +38,14 @@ public class shoulder implements Subsystem {
 
         slave = new MotorEx(SLAVE_NAME).zeroed();
         slave.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-    }
 
-    @Override
-    public void initialize() {
         targetTicks = 0;
     }
 
     @Override
     public void periodic() {
-        int currentTicks = master.getCurrentPosition();
-        int error = targetTicks - currentTicks;
+        double currentTicks = master.getCurrentPosition();
+        double error = targetTicks - currentTicks;
 
         double power = KP * error;
         if (power > MAX_POWER) power = MAX_POWER;
@@ -65,7 +65,7 @@ public class shoulder implements Subsystem {
         return targetTicks;
     }
 
-    public int getCurrentTicks() {
+    public double getCurrentTicks() {
         return master.getCurrentPosition();
     }
 
